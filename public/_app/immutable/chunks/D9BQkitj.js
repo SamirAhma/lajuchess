@@ -1,0 +1,1 @@
+import{v as u,w as o,H as _,x as t,C as g,y as i,z as l,A as d,B as p,E as v}from"./B3BugNP9.js";function m(n,r){let s=null,y=t;var a;if(t){s=p;for(var e=v(document.head);e!==null&&(e.nodeType!==g||e.data!==n);)e=i(e);if(e===null)l(!1);else{var f=i(e);e.remove(),d(f)}}t||(a=document.head.appendChild(u()));try{o(()=>r(a),_)}finally{y&&(l(!0),d(s))}}export{m as h};

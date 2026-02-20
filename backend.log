@@ -1,0 +1,96 @@
+warning: unused imports: `CookieJar` and `Cookie`
+  --> src/main.rs:11:35
+   |
+11 | use axum_extra::extract::cookie::{Cookie, CookieJar};
+   |                                   ^^^^^^  ^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `Algorithm`
+  --> src/main.rs:22:44
+   |
+22 | use jsonwebtoken::{encode, decode, Header, Algorithm, Validation, EncodingKey, DecodingKey};
+   |                                            ^^^^^^^^^
+
+warning: `lightchess` (bin "lightchess") generated 2 warnings (run `cargo fix --bin "lightchess"` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.14s
+warning: the following packages contain code that will be rejected by a future version of Rust: sqlx-postgres v0.7.4
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+     Running `target/debug/lightchess`
+[2m2026-02-20T04:59:24.868075Z[0m [32m INFO[0m [2msqlx::postgres::notice[0m[2m:[0m relation "users" already exists, skipping
+[2m2026-02-20T04:59:24.873743Z[0m [34mDEBUG[0m [2msqlx::query[0m[2m:[0m [3msummary[0m[2m=[0m"CREATE TABLE IF NOT …" [3mdb.statement[0m[2m=[0m"\n\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY,\n  username TEXT UNIQUE NOT NULL,\n  password_hash TEXT NOT NULL,\n  created_at TIMESTAMPTZ DEFAULT NOW()\n);\n" [3mrows_affected[0m[2m=[0m0 [3mrows_returned[0m[2m=[0m0 [3melapsed[0m[2m=[0m6.804855ms [3melapsed_secs[0m[2m=[0m0.006804855
+[2m2026-02-20T04:59:25.093880Z[0m [32m INFO[0m [2msqlx::postgres::notice[0m[2m:[0m relation "games" already exists, skipping
+[2m2026-02-20T04:59:25.111207Z[0m [34mDEBUG[0m [2msqlx::query[0m[2m:[0m [3msummary[0m[2m=[0m"CREATE TABLE IF NOT …" [3mdb.statement[0m[2m=[0m"\n\nCREATE TABLE IF NOT EXISTS games (\n  id UUID PRIMARY KEY,\n  fen TEXT NOT NULL,\n  pgn TEXT NOT NULL,\n  creator_color TEXT NOT NULL DEFAULT 'white',\n  white_player_id UUID REFERENCES users(id),\n  black_player_id UUID REFERENCES users(id),\n  created_at TIMESTAMPTZ DEFAULT NOW(),\n  updated_at TIMESTAMPTZ DEFAULT NOW()\n)\n" [3mrows_affected[0m[2m=[0m0 [3mrows_returned[0m[2m=[0m0 [3melapsed[0m[2m=[0m3.359651ms [3melapsed_secs[0m[2m=[0m0.003359651
+[2m2026-02-20T04:59:25.126226Z[0m [32m INFO[0m [2mlightchess[0m[2m:[0m listening on http://0.0.0.0:3000
+[2m2026-02-20T04:59:29.841877Z[0m [34mDEBUG[0m [1mrequest[0m[1m{[0m[3mmethod[0m[2m=[0mGET [3muri[0m[2m=[0m/ws/4cdaf5f0-cc60-4ce5-9bd5-9ebc72c4aa35 [3mversion[0m[2m=[0mHTTP/1.1[1m}[0m[2m:[0m [2mtower_http::trace::on_request[0m[2m:[0m started processing request
+[2m2026-02-20T04:59:29.842514Z[0m [34mDEBUG[0m [1mrequest[0m[1m{[0m[3mmethod[0m[2m=[0mGET [3muri[0m[2m=[0m/ws/4cdaf5f0-cc60-4ce5-9bd5-9ebc72c4aa35 [3mversion[0m[2m=[0mHTTP/1.1[1m}[0m[2m:[0m [2mtower_http::trace::on_response[0m[2m:[0m finished processing request [3mlatency[0m[2m=[0m0 ms [3mstatus[0m[2m=[0m101
+[2m2026-02-20T04:59:29.842946Z[0m [35mTRACE[0m [2mtokio_tungstenite::handshake[0m[2m:[0m Setting context when skipping handshake
+[2m2026-02-20T04:59:29.861101Z[0m [34mDEBUG[0m [2msqlx::query[0m[2m:[0m [3msummary[0m[2m=[0m"SELECT fen, pgn, creator_color …" [3mdb.statement[0m[2m=[0m"\n\nSELECT\n  fen,\n  pgn,\n  creator_color\nFROM\n  games\nWHERE\n  id = $1\n" [3mrows_affected[0m[2m=[0m0 [3mrows_returned[0m[2m=[0m1 [3melapsed[0m[2m=[0m14.405402ms [3melapsed_secs[0m[2m=[0m0.014405402
+[2m2026-02-20T04:59:29.861426Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T04:59:29.861498Z[0m [35mTRACE[0m [2mtungstenite::protocol[0m[2m:[0m Sending frame: Frame { header: FrameHeader { is_final: true, rsv1: false, rsv2: false, rsv3: false, opcode: Data(Text), mask: None }, payload: [123, 34, 116, 121, 112, 101, 34, 58, 34, 83, 116, 97, 116, 101, 34, 44, 34, 112, 97, 121, 108, 111, 97, 100, 34, 58, 123, 34, 102, 101, 110, 34, 58, 34, 114, 110, 98, 113, 107, 98, 110, 114, 47, 112, 112, 112, 112, 112, 112, 112, 112, 47, 56, 47, 56, 47, 56, 47, 56, 47, 80, 80, 80, 80, 80, 80, 80, 80, 47, 82, 78, 66, 81, 75, 66, 78, 82, 32, 119, 32, 75, 81, 107, 113, 32, 45, 32, 48, 32, 49, 34, 44, 34, 112, 103, 110, 34, 58, 34, 34, 44, 34, 99, 114, 101, 97, 116, 111, 114, 95, 99, 111, 108, 111, 114, 34, 58, 34, 119, 104, 105, 116, 101, 34, 125, 125] }
+[2m2026-02-20T04:59:29.861638Z[0m [35mTRACE[0m [2mtungstenite::protocol::frame[0m[2m:[0m writing frame 
+<FRAME>
+final: true
+reserved: false false false
+opcode: TEXT
+length: 130
+payload length: 126
+payload: 0x7b2274797065223a225374617465222c227061796c6f6164223a7b2266656e223a22726e62716b626e722f70707070707070702f382f382f382f382f50505050505050502f524e42514b424e522077204b516b71202d20302031222c2270676e223a22222c2263726561746f725f636f6c6f72223a227768697465227d7d
+            
+[2m2026-02-20T04:59:29.861740Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T04:59:29.861779Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:167 Write.write
+[2m2026-02-20T04:59:29.861810Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T04:59:29.861844Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:169 Write.with_context write -> poll_write
+[2m2026-02-20T04:59:29.862002Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:178 Write.flush
+[2m2026-02-20T04:59:29.862051Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T04:59:29.862083Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:180 Write.with_context flush -> poll_flush
+[2m2026-02-20T04:59:29.862140Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:288 Stream.poll_next
+[2m2026-02-20T04:59:29.862175Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T04:59:29.862210Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:298 Stream.with_context poll_next -> read()
+[2m2026-02-20T04:59:29.862254Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:149 Read.read
+[2m2026-02-20T04:59:29.862288Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T04:59:29.862319Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:152 Read.with_context read -> poll_read
+[2m2026-02-20T04:59:29.862382Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m WouldBlock
+[2m2026-02-20T04:59:29.948346Z[0m [34mDEBUG[0m [1mrequest[0m[1m{[0m[3mmethod[0m[2m=[0mGET [3muri[0m[2m=[0m/ws/dce5f82f-404d-428c-8dc5-83dcebb80238 [3mversion[0m[2m=[0mHTTP/1.1[1m}[0m[2m:[0m [2mtower_http::trace::on_request[0m[2m:[0m started processing request
+[2m2026-02-20T04:59:29.948503Z[0m [34mDEBUG[0m [1mrequest[0m[1m{[0m[3mmethod[0m[2m=[0mGET [3muri[0m[2m=[0m/ws/dce5f82f-404d-428c-8dc5-83dcebb80238 [3mversion[0m[2m=[0mHTTP/1.1[1m}[0m[2m:[0m [2mtower_http::trace::on_response[0m[2m:[0m finished processing request [3mlatency[0m[2m=[0m0 ms [3mstatus[0m[2m=[0m101
+[2m2026-02-20T04:59:29.948647Z[0m [35mTRACE[0m [2mtokio_tungstenite::handshake[0m[2m:[0m Setting context when skipping handshake
+[2m2026-02-20T04:59:29.951496Z[0m [34mDEBUG[0m [2msqlx::query[0m[2m:[0m [3msummary[0m[2m=[0m"SELECT fen, pgn, creator_color …" [3mdb.statement[0m[2m=[0m"\n\nSELECT\n  fen,\n  pgn,\n  creator_color\nFROM\n  games\nWHERE\n  id = $1\n" [3mrows_affected[0m[2m=[0m0 [3mrows_returned[0m[2m=[0m1 [3melapsed[0m[2m=[0m1.664296ms [3melapsed_secs[0m[2m=[0m0.001664296
+[2m2026-02-20T04:59:29.951623Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T04:59:29.951643Z[0m [35mTRACE[0m [2mtungstenite::protocol[0m[2m:[0m Sending frame: Frame { header: FrameHeader { is_final: true, rsv1: false, rsv2: false, rsv3: false, opcode: Data(Text), mask: None }, payload: [123, 34, 116, 121, 112, 101, 34, 58, 34, 83, 116, 97, 116, 101, 34, 44, 34, 112, 97, 121, 108, 111, 97, 100, 34, 58, 123, 34, 102, 101, 110, 34, 58, 34, 114, 110, 98, 113, 107, 98, 110, 114, 47, 112, 112, 112, 112, 112, 112, 112, 112, 47, 56, 47, 56, 47, 56, 47, 56, 47, 80, 80, 80, 80, 80, 80, 80, 80, 47, 82, 78, 66, 81, 75, 66, 78, 82, 32, 119, 32, 75, 81, 107, 113, 32, 45, 32, 48, 32, 49, 34, 44, 34, 112, 103, 110, 34, 58, 34, 34, 44, 34, 99, 114, 101, 97, 116, 111, 114, 95, 99, 111, 108, 111, 114, 34, 58, 34, 119, 104, 105, 116, 101, 34, 125, 125] }
+[2m2026-02-20T04:59:29.951678Z[0m [35mTRACE[0m [2mtungstenite::protocol::frame[0m[2m:[0m writing frame 
+<FRAME>
+final: true
+reserved: false false false
+opcode: TEXT
+length: 130
+payload length: 126
+payload: 0x7b2274797065223a225374617465222c227061796c6f6164223a7b2266656e223a22726e62716b626e722f70707070707070702f382f382f382f382f50505050505050502f524e42514b424e522077204b516b71202d20302031222c2270676e223a22222c2263726561746f725f636f6c6f72223a227768697465227d7d
+            
+[2m2026-02-20T04:59:29.951710Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T04:59:29.951722Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:167 Write.write
+[2m2026-02-20T04:59:29.951732Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T04:59:29.951743Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:169 Write.with_context write -> poll_write
+[2m2026-02-20T04:59:29.951792Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:178 Write.flush
+[2m2026-02-20T04:59:29.951805Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T04:59:29.951815Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:180 Write.with_context flush -> poll_flush
+[2m2026-02-20T04:59:29.951846Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:288 Stream.poll_next
+[2m2026-02-20T04:59:29.951858Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T04:59:29.951868Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:298 Stream.with_context poll_next -> read()
+[2m2026-02-20T04:59:29.951882Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:149 Read.read
+[2m2026-02-20T04:59:29.951893Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T04:59:29.951903Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:152 Read.with_context read -> poll_read
+[2m2026-02-20T04:59:29.951933Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m WouldBlock
+[2m2026-02-20T07:51:44.270811Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:288 Stream.poll_next
+[2m2026-02-20T07:51:44.270970Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T07:51:44.271038Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:298 Stream.with_context poll_next -> read()
+[2m2026-02-20T07:51:44.271111Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:149 Read.read
+[2m2026-02-20T07:51:44.271165Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T07:51:44.271215Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:152 Read.with_context read -> poll_read
+[2m2026-02-20T07:51:44.271307Z[0m [35mTRACE[0m [2mtungstenite::protocol::frame[0m[2m:[0m no frame received
+[2m2026-02-20T07:51:44.271726Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:288 Stream.poll_next
+[2m2026-02-20T07:51:44.271835Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:243 WebSocketStream.with_context
+[2m2026-02-20T07:51:44.271896Z[0m [35mTRACE[0m [2mtokio_tungstenite[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/lib.rs:298 Stream.with_context poll_next -> read()
+[2m2026-02-20T07:51:44.271963Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:149 Read.read
+[2m2026-02-20T07:51:44.272017Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:126 AllowStd.with_context
+[2m2026-02-20T07:51:44.272070Z[0m [35mTRACE[0m [2mtokio_tungstenite::compat[0m[2m:[0m /opt/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-tungstenite-0.24.0/src/compat.rs:152 Read.with_context read -> poll_read
+[2m2026-02-20T07:51:44.272176Z[0m [35mTRACE[0m [2mtungstenite::protocol::frame[0m[2m:[0m no frame received

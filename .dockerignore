@@ -1,0 +1,4 @@
+target/
+lightchess.db
+lightchess.db-journal
+*.backup.*
